@@ -15,8 +15,9 @@ const score = document.createElement("div");
 score.innerText = `Yarn by yard: None`;
 app.append(score);
 
+const numberFormat = new Intl.NumberFormat("en-US", {maximumFractionDigits: 3});
 function updateScore() {
-  score.innerText = `Yarn by yards: ${counter}`;
+    score.innerText = `Yarn by yards: ${numberFormat.format(counter)}`;
 }
 
 const button = document.createElement("button");
@@ -35,7 +36,7 @@ setInterval(() => {
 */
 
 let startOfFrame: DOMHighResTimeStamp;
-const msPerYarn: number = 100000;
+const msPerYarn: number = 1000;
 function step(timestamp: DOMHighResTimeStamp) {
   if (startOfFrame === undefined) {
     startOfFrame = timestamp;
