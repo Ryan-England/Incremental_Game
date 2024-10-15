@@ -15,13 +15,32 @@ app.append(score);
 
 let yarnCounter: number = 0;
 let hatCounter: number = 0;
-let possibleUpgrades: boolean = true;
+let tableCounter: number = 0;
+let dragonCounter: number = 0;
+let yarnPerMs: number = 0;
+let furtherUpgrades: boolean = true;
 
 const numberFormat = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
 });
 function updateScore() {
   score.innerText = `Yarn by yards: ${numberFormat.format(yarnCounter)}`;
+  if (yarnPerMs != 0) {
+    score.innerText += `
+    Yarn gathered per second: ${yarnPerMs * 1000}`;
+  }
+  if (hatCounter != 0) {
+    score.innerText += `
+    Hats crafted: ${hatCounter}`;
+  }
+  if (tableCounter != 0) {
+    score.innerText += `
+    Tables made: ${tableCounter}`;
+  }
+  if (dragonCounter != 0) {
+    score.innerText += `
+    Dragons created: ${tableCounter}`;
+  }
 }
 
 const button = document.createElement("button");
@@ -38,12 +57,38 @@ hatUpgrade.addEventListener("click", () => {
   if (yarnCounter >= 10) {
     yarnCounter -= 10;
     hatCounter++;
-    YarnPerMs += 0.001;
+    yarnPerMs += 0.0001;
     hatUpgrade.textContent = `Crochet a Hat (cost: 10 yards): ${hatCounter}`;
   }
 });
 app.append(hatUpgrade);
 hatUpgrade.disabled = true;
+
+const tableUpgrade = document.createElement("button");
+tableUpgrade.textContent = "Crochet a table to crochet upon";
+tableUpgrade.addEventListener("click", () => {
+  if (yarnCounter >= 100) {
+    yarnCounter -= 100;
+    tableCounter++;
+    yarnPerMs += 0.002;
+    tableUpgrade.textContent = `Crochet a Table (cost: 100 yards): ${tableCounter}`;
+  }
+});
+app.append(tableUpgrade);
+tableUpgrade.disabled = true;
+
+const dragonUpgrade = document.createElement("button");
+dragonUpgrade.textContent = "Crochet a cute dragon to fetch more yarn";
+dragonUpgrade.addEventListener("click", () => {
+  if (yarnCounter >= 1000) {
+    yarnCounter -= 1000;
+    dragonCounter++;
+    yarnPerMs += 0.05;
+    dragonUpgrade.textContent = `Crochet a Dragon (cost: 1000 yards): ${dragonCounter}`;
+  }
+});
+app.append(dragonUpgrade);
+dragonUpgrade.disabled = true;
 
 /*
 setInterval(() => {
@@ -53,7 +98,6 @@ setInterval(() => {
 */
 
 let startOfFrame: DOMHighResTimeStamp;
-let YarnPerMs: number = 0;
 function step(timestamp: DOMHighResTimeStamp) {
   if (startOfFrame === undefined) {
     startOfFrame = timestamp;
@@ -61,13 +105,13 @@ function step(timestamp: DOMHighResTimeStamp) {
   const elapsed = timestamp - startOfFrame;
   startOfFrame = timestamp;
 
-  yarnCounter += YarnPerMs * elapsed;
+  yarnCounter += yarnPerMs * elapsed;
   updateScore();
 
-  if (possibleUpgrades) {
+  if (furtherUpgrades) {
     if (yarnCounter >= 10) {
       hatUpgrade.disabled = false;
-      possibleUpgrades = false;
+      furtherUpgrades = false;
     }
   }
 
