@@ -12,13 +12,14 @@ header.innerHTML = gameName;
 app.append(header);
 
 const score = document.createElement("div");
-score.innerText = `Yarn by yard: ${counter}`;
+score.innerText = `Yarn by yard: None`;
 app.append(score);
 
 const button = document.createElement("button");
 button.textContent = "🧶🧶🧶";
 button.addEventListener("click", () => {
   counter++;
+  score.innerText = `Yarn by yard: ${counter}`;
 });
 
 app.append(button);
