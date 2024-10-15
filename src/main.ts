@@ -2,8 +2,6 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-let yarnCounter: number = 0;
-
 const gameName = "Crochet_Creations";
 document.title = gameName;
 
@@ -15,6 +13,8 @@ const score = document.createElement("div");
 score.innerText = `Yarn by yard: None`;
 app.append(score);
 
+let yarnCounter: number = 0;
+
 const numberFormat = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
 });
@@ -23,7 +23,7 @@ function updateScore() {
 }
 
 const button = document.createElement("button");
-button.textContent = "🧶 Get 🧶 Yarn 🧶";
+button.textContent = "🧶 Crochet 🧶 Yarn 🧶";
 button.addEventListener("click", () => {
   yarnCounter++;
   updateScore();
@@ -56,13 +56,21 @@ requestAnimationFrame(step);
 let hatCounter = 0;
 
 const hatUpgrade = document.createElement("button");
-hatUpgrade.textContent = "Crochet a Hat to keep off the sun (cost: 10 yards)";
+hatUpgrade.textContent = "Crochet a Hat to keep off the sun";
 hatUpgrade.addEventListener("click", () => {
-    if (yarnCounter >= 10) {
-        yarnCounter -= 10;
-        hatCounter++;
-        YarnPerMs += 0.001;
-        hatUpgrade.textContent = `Crochet a Hat (cost: 10 yards): ${hatCounter}`;
-    }
+  if (yarnCounter >= 10) {
+    yarnCounter -= 10;
+    hatCounter++;
+    YarnPerMs += 0.001;
+    hatUpgrade.textContent = `Crochet a Hat (cost: 10 yards): ${hatCounter}`;
+  }
 });
-app.append(hatUpgrade);
+
+let possibleUpgrades = true;
+
+while (possibleUpgrades) {
+  if (yarnCounter >= 10) {
+    app.append(hatUpgrade);
+    possibleUpgrades = false;
+  }
+}
