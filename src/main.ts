@@ -39,7 +39,7 @@ function updateScore() {
   }
   if (dragonCounter != 0) {
     score.innerText += `
-    Dragons created: ${tableCounter}`;
+    Dragons created: ${dragonCounter}`;
   }
 }
 
