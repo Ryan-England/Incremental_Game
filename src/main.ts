@@ -34,9 +34,12 @@ setInterval(() => {
 }, 1000);
 */
 
-const startTime = performance.now();
-const yarnPerMilli: number = 0.001;
+let startTime:DOMHighResTimeStamp;
+const yarnPerMilli: number = 0.1;
 function step(timestamp: DOMHighResTimeStamp) {
+  if (startTime === undefined) {
+    startTime = timestamp;
+  }
   const elapsed = timestamp - startTime;
 
   counter += yarnPerMilli * elapsed;
