@@ -15,9 +15,11 @@ const score = document.createElement("div");
 score.innerText = `Yarn by yard: None`;
 app.append(score);
 
-const numberFormat = new Intl.NumberFormat("en-US", {maximumFractionDigits: 3});
+const numberFormat = new Intl.NumberFormat("en-US", {
+  maximumFractionDigits: 1,
+});
 function updateScore() {
-    score.innerText = `Yarn by yards: ${numberFormat.format(counter)}`;
+  score.innerText = `Yarn by yards: ${numberFormat.format(counter)}`;
 }
 
 const button = document.createElement("button");
@@ -36,7 +38,7 @@ setInterval(() => {
 */
 
 let startOfFrame: DOMHighResTimeStamp;
-const msPerYarn: number = 1000;
+const YarnPerMs: number = 0.0001;
 function step(timestamp: DOMHighResTimeStamp) {
   if (startOfFrame === undefined) {
     startOfFrame = timestamp;
@@ -44,7 +46,7 @@ function step(timestamp: DOMHighResTimeStamp) {
   const elapsed = timestamp - startOfFrame;
   startOfFrame = timestamp;
 
-  counter += elapsed / msPerYarn;
+  counter += YarnPerMs * elapsed;
   updateScore();
   requestAnimationFrame(step);
 }
