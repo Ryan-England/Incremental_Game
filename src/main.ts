@@ -35,14 +35,14 @@ setInterval(() => {
 */
 
 let startTime: DOMHighResTimeStamp;
-const yarnPerMilli: number = 0.00000001;
+const msPerYarn: number = 1000;
 function step(timestamp: DOMHighResTimeStamp) {
   if (startTime === undefined) {
     startTime = timestamp;
   }
   const elapsed = timestamp - startTime;
 
-  counter += elapsed / yarnPerMilli;
+  counter += elapsed / msPerYarn;
   updateScore();
   requestAnimationFrame(step);
 }
