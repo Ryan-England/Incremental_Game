@@ -2,7 +2,7 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-let counter: number = 0;
+let yarnCounter: number = 0;
 
 const gameName = "Crochet_Creations";
 document.title = gameName;
@@ -19,13 +19,13 @@ const numberFormat = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
 });
 function updateScore() {
-  score.innerText = `Yarn by yards: ${numberFormat.format(counter)}`;
+  score.innerText = `Yarn by yards: ${numberFormat.format(yarnCounter)}`;
 }
 
 const button = document.createElement("button");
 button.textContent = "🧶 Get 🧶 Yarn 🧶";
 button.addEventListener("click", () => {
-  counter++;
+  yarnCounter++;
   updateScore();
 });
 app.append(button);
@@ -38,7 +38,7 @@ setInterval(() => {
 */
 
 let startOfFrame: DOMHighResTimeStamp;
-const YarnPerMs: number = 0.0001;
+let YarnPerMs: number = 0;
 function step(timestamp: DOMHighResTimeStamp) {
   if (startOfFrame === undefined) {
     startOfFrame = timestamp;
@@ -46,9 +46,23 @@ function step(timestamp: DOMHighResTimeStamp) {
   const elapsed = timestamp - startOfFrame;
   startOfFrame = timestamp;
 
-  counter += YarnPerMs * elapsed;
+  yarnCounter += YarnPerMs * elapsed;
   updateScore();
   requestAnimationFrame(step);
 }
 
 requestAnimationFrame(step);
+
+let hatCounter = 0;
+
+const hatUpgrade = document.createElement("button");
+hatUpgrade.textContent = "Crochet a Hat to keep off the sun (cost: 10 yards)";
+hatUpgrade.addEventListener("click", () => {
+    if (yarnCounter >= 10) {
+        yarnCounter -= 10;
+        hatCounter++;
+        YarnPerMs += 0.001;
+        hatUpgrade.textContent = `Crochet a Hat (cost: 10 yards): ${hatCounter}`;
+    }
+});
+app.append(hatUpgrade);
