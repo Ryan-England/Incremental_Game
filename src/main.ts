@@ -34,13 +34,14 @@ setInterval(() => {
 }, 1000);
 */
 
-let startTime: DOMHighResTimeStamp;
-const msPerYarn: number = 1000;
+let startOfFrame: DOMHighResTimeStamp;
+const msPerYarn: number = 100000;
 function step(timestamp: DOMHighResTimeStamp) {
-  if (startTime === undefined) {
-    startTime = timestamp;
+  if (startOfFrame === undefined) {
+    startOfFrame = timestamp;
   }
-  const elapsed = timestamp - startTime;
+  const elapsed = timestamp - startOfFrame;
+  startOfFrame = timestamp;
 
   counter += elapsed / msPerYarn;
   updateScore();
