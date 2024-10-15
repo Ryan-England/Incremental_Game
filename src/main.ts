@@ -16,7 +16,7 @@ score.innerText = `Yarn by yard: None`;
 app.append(score);
 
 function updateScore() {
-    score.innerText = `Yarn by yards: ${counter}`;
+  score.innerText = `Yarn by yards: ${counter}`;
 }
 
 const button = document.createElement("button");
@@ -35,13 +35,13 @@ setInterval(() => {
 */
 
 const startTime = performance.now();
-const yarnPerMilli:number = 0.1;
-function step(timestamp:DOMHighResTimeStamp) {
-    const elapsed = timestamp - startTime;
+const yarnPerMilli: number = 0.001;
+function step(timestamp: DOMHighResTimeStamp) {
+  const elapsed = timestamp - startTime;
 
-    counter += yarnPerMilli * elapsed;
-    updateScore();
-    requestAnimationFrame(step);
+  counter += yarnPerMilli * elapsed;
+  updateScore();
+  requestAnimationFrame(step);
 }
 
 requestAnimationFrame(step);
