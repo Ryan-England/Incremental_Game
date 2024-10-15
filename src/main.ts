@@ -14,6 +14,8 @@ score.innerText = `Yarn by yard: None`;
 app.append(score);
 
 let yarnCounter: number = 0;
+let hatCounter:number = 0;
+let possibleUpgrades:boolean = true;
 
 const numberFormat = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
@@ -29,6 +31,17 @@ button.addEventListener("click", () => {
   updateScore();
 });
 app.append(button);
+
+const hatUpgrade = document.createElement("button");
+hatUpgrade.textContent = "Crochet a Hat to keep off the sun";
+hatUpgrade.addEventListener("click", () => {
+  if (yarnCounter >= 10) {
+    yarnCounter -= 10;
+    hatCounter++;
+    YarnPerMs += 0.001;
+    hatUpgrade.textContent = `Crochet a Hat (cost: 10 yards): ${hatCounter}`;
+  }
+});
 
 /*
 setInterval(() => {
@@ -48,29 +61,15 @@ function step(timestamp: DOMHighResTimeStamp) {
 
   yarnCounter += YarnPerMs * elapsed;
   updateScore();
+
+  if (possibleUpgrades) {
+    if (yarnCounter >= 10) {
+      app.append(hatUpgrade);
+      possibleUpgrades = false;
+   }
+  }
+
   requestAnimationFrame(step);
 }
 
 requestAnimationFrame(step);
-
-let hatCounter = 0;
-
-const hatUpgrade = document.createElement("button");
-hatUpgrade.textContent = "Crochet a Hat to keep off the sun";
-hatUpgrade.addEventListener("click", () => {
-  if (yarnCounter >= 10) {
-    yarnCounter -= 10;
-    hatCounter++;
-    YarnPerMs += 0.001;
-    hatUpgrade.textContent = `Crochet a Hat (cost: 10 yards): ${hatCounter}`;
-  }
-});
-
-let possibleUpgrades = true;
-
-while (possibleUpgrades) {
-  if (yarnCounter >= 10) {
-    app.append(hatUpgrade);
-    possibleUpgrades = false;
-  }
-}
