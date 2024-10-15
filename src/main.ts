@@ -27,7 +27,7 @@ function updateScore() {
   score.innerText = `Yarn by yards: ${numberFormat.format(yarnCounter)}`;
   if (yarnPerMs != 0) {
     score.innerText += `
-    Yarn gathered per second: ${hatCounter * 0.1 + tableCounter * 2 + dragonCounter * 50}`;
+    Yarn gathered per second: ${numberFormat.format(yarnPerMs * 1000)}`;
   }
   if (hatCounter != 0) {
     score.innerText += `
@@ -111,6 +111,12 @@ function step(timestamp: DOMHighResTimeStamp) {
   if (furtherUpgrades) {
     if (yarnCounter >= 10) {
       hatUpgrade.disabled = false;
+    }
+    if (yarnCounter >= 100) {
+      tableUpgrade.disabled = false;
+    }
+    if (yarnCounter >= 1000) {
+      dragonUpgrade.disabled = false;
       furtherUpgrades = false;
     }
   }
