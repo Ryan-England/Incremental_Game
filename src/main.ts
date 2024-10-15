@@ -19,7 +19,11 @@ const button = document.createElement("button");
 button.textContent = "🧶🧶🧶";
 button.addEventListener("click", () => {
   counter++;
-  score.innerText = `Yarn by yard: ${counter}`;
+  score.innerText = `Yarn by yards: ${counter}`;
 });
-
 app.append(button);
+
+setInterval(() => {
+    counter++;
+    score.innerText = `Yarn by yards: ${counter}`;
+}, 1000);
