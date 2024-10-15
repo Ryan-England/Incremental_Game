@@ -22,6 +22,7 @@ let furtherUpgrades: boolean = true;
 
 const numberFormat = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
+  minimumFractionDigits: 1
 });
 function updateScore() {
   score.innerText = `Yarn by yards: ${numberFormat.format(yarnCounter)}`;
