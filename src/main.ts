@@ -27,7 +27,7 @@ function updateScore() {
   score.innerText = `Yarn by yards: ${numberFormat.format(yarnCounter)}`;
   if (yarnPerMs != 0) {
     score.innerText += `
-    Yarn gathered per second: ${yarnPerMs * 1000}`;
+    Yarn gathered per second: ${hatCounter * 0.1 + tableCounter * 2 + dragonCounter * 50}`;
   }
   if (hatCounter != 0) {
     score.innerText += `
