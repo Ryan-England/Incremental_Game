@@ -30,23 +30,41 @@ interface Item {
 }
 
 const availableItems: Item[] = [
-  { name: `Crochet Hat`, 
+  {
+    name: `Crochet Hat`,
     description: `Crochet a Hat to keep off the sun`,
-    price: 10, 
-    rateIncrease: 0.0001, 
-    counter: 0 
+    price: 10,
+    rateIncrease: 0.0001,
+    counter: 0
   },
-  { name: "Crochet Table", 
+  {
+    name: `Crochet Sweater`,
+    description: `Crochet a sweater to look snazzy`,
+    price: 30,
+    rateIncrease: 0.0009,
+    counter: 0
+  },
+  {
+    name: "Crochet Table",
     description: `Crochet a table to crochet upon`,
-    price: 100, 
-    rateIncrease: 0.002, 
-    counter: 0 
+    price: 100,
+    rateIncrease: 0.002,
+    counter: 0
   },
-  { name: "Crochet Dragon", 
+  {
+    name: "Crochet Dragon",
     description: `Crochet a cute dragon to fetch more yarn`,
-    price: 1000, 
-    rateIncrease: 0.05, 
-    counter: 0 },
+    price: 1000,
+    rateIncrease: 0.05,
+    counter: 0,
+  },
+  {
+    name: "Crochet Friend",
+    description: `Crochet a new friend who can do everything you do`,
+    price: 10000,
+    rateIncrease: 0.4,
+    counter: 0,
+  }
 ];
 
 const buttons: HTMLButtonElement[] = [];
