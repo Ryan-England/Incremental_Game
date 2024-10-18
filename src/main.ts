@@ -22,7 +22,7 @@ let furtherUpgrades: boolean = true;
 
 const numberFormat = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
-  minimumFractionDigits: 1
+  minimumFractionDigits: 1,
 });
 function updateScore() {
   score.innerText = `Yarn by yards: ${numberFormat.format(yarnCounter)}`;
@@ -54,9 +54,11 @@ app.append(button);
 
 const hatUpgrade = document.createElement("button");
 hatUpgrade.textContent = "Crochet a Hat to keep off the sun";
+let hatUpgradePrice: number = 10;
 hatUpgrade.addEventListener("click", () => {
-  if (yarnCounter >= 10) {
-    yarnCounter -= 10;
+  if (yarnCounter >= hatUpgradePrice) {
+    yarnCounter -= hatUpgradePrice;
+    hatUpgradePrice *= 1.15;
     hatCounter++;
     yarnPerMs += 0.0001;
     hatUpgrade.textContent = `Crochet a Hat (cost: 10 yards): ${hatCounter}`;
