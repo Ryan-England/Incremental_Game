@@ -2,7 +2,7 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "Crochet_Creations";
+const gameName = "Crochet Creations";
 document.title = gameName;
 
 const header = document.createElement("h1");
@@ -45,7 +45,7 @@ function updateScore() {
 }
 
 const button = document.createElement("button");
-button.textContent = "🧶 Crochet 🧶 Yarn 🧶";
+button.textContent = "🧶 Gather 🧶 Yarn 🧶";
 button.addEventListener("click", () => {
   yarnCounter++;
   updateScore();
