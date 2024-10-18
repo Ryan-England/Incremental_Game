@@ -61,7 +61,7 @@ hatUpgrade.addEventListener("click", () => {
     hatUpgradePrice *= 1.15;
     hatCounter++;
     yarnPerMs += 0.0001;
-    hatUpgrade.textContent = `Crochet a Hat (cost: 10 yards): ${hatCounter}`;
+    hatUpgrade.textContent = `Crochet a Hat (cost: ${numberFormat.format(hatUpgradePrice)} yards)`;
   }
 });
 app.append(hatUpgrade);
@@ -69,12 +69,14 @@ hatUpgrade.disabled = true;
 
 const tableUpgrade = document.createElement("button");
 tableUpgrade.textContent = "Crochet a table to crochet upon";
+let tableUpgradePrice: number = 100;
 tableUpgrade.addEventListener("click", () => {
-  if (yarnCounter >= 100) {
-    yarnCounter -= 100;
+  if (yarnCounter >= tableUpgradePrice) {
+    yarnCounter -= tableUpgradePrice;
+    tableUpgradePrice *= 1.15;
     tableCounter++;
     yarnPerMs += 0.002;
-    tableUpgrade.textContent = `Crochet a Table (cost: 100 yards): ${tableCounter}`;
+    tableUpgrade.textContent = `Crochet a Table (cost: ${numberFormat.format(tableUpgradePrice)} yards)`;
   }
 });
 app.append(tableUpgrade);
@@ -82,12 +84,14 @@ tableUpgrade.disabled = true;
 
 const dragonUpgrade = document.createElement("button");
 dragonUpgrade.textContent = "Crochet a cute dragon to fetch more yarn";
+let dragonUpgradePrice: number = 1000;
 dragonUpgrade.addEventListener("click", () => {
-  if (yarnCounter >= 1000) {
-    yarnCounter -= 1000;
+  if (yarnCounter >= dragonUpgradePrice) {
+    yarnCounter -= dragonUpgradePrice;
+    dragonUpgradePrice *= 1.15;
     dragonCounter++;
     yarnPerMs += 0.05;
-    dragonUpgrade.textContent = `Crochet a Dragon (cost: 1000 yards): ${dragonCounter}`;
+    dragonUpgrade.textContent = `Crochet a Dragon (cost: ${numberFormat.format(dragonUpgradePrice)} yards)`;
   }
 });
 app.append(dragonUpgrade);
