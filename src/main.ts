@@ -14,22 +14,59 @@ score.innerText = `Yarn by yard: None`;
 app.append(score);
 
 let yarnCounter: number = 0;
-let hatCounter: number = 0;
-let tableCounter: number = 0;
-let dragonCounter: number = 0;
 let yarnPerMs: number = 0;
-let furtherUpgrades: boolean = true;
 
 const numberFormat = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
   minimumFractionDigits: 1,
 });
+
+interface Item {
+  name: string,
+  price: number,
+  rateIncrease: number,
+  counter: number
+};
+
+const availableItems : Item[] = [
+  {name: `Crochet Hat`,
+    price: 10,
+    rateIncrease: 0.0001,
+    counter: 0
+  },
+  {name: "Crochet Table",
+    price: 100,
+    rateIncrease: 0.002,
+    counter: 0
+  },
+  {name: "Crochet Dragon",
+    price: 1000,
+    rateIncrease: 0.05,
+    counter: 0
+  },
+];
+
+const buttons : HTMLButtonElement[] = [];
+
 function updateScore() {
   score.innerText = `Yarn by yards: ${numberFormat.format(yarnCounter)}`;
   if (yarnPerMs != 0) {
     score.innerText += `
     Yarn gathered per second: ${numberFormat.format(yarnPerMs * 1000)}`;
   }
+  for (const item of availableItems) {
+    if (item.counter != 0) {
+      score.innerText += `
+      ${item.name}s crafted: ${item.counter}`
+    }
+    for (const button of buttons) {
+      if (item.name == button.textContent && yarnCounter >= item.price) {
+        button.disabled = false;
+      }
+    }
+  }
+
+  /*
   if (hatCounter != 0) {
     score.innerText += `
     Hats crafted: ${hatCounter}`;
@@ -42,7 +79,19 @@ function updateScore() {
     score.innerText += `
     Dragons created: ${dragonCounter}`;
   }
+
+  if (yarnCounter >= 10) {
+    hatUpgrade.disabled = false;
+  }
+  if (yarnCounter >= 100) {
+    tableUpgrade.disabled = false;
+  }
+  if (yarnCounter >= 1000) {
+    dragonUpgrade.disabled = false;
+  }
+  */
 }
+
 
 const button = document.createElement("button");
 button.textContent = "🧶 Gather 🧶 Yarn 🧶";
@@ -52,6 +101,24 @@ button.addEventListener("click", () => {
 });
 app.append(button);
 
+for (const item of availableItems) {
+  const itemButton = document.createElement("button");
+  itemButton.textContent = item.name;
+  itemButton.addEventListener("click", () => {
+    if (yarnCounter >= item.price) {
+      yarnCounter -= item.price;
+      item.price *= 1.15;
+      item.counter++;
+      yarnPerMs += item.rateIncrease;
+      itemButton.textContent = item.name + ` (cost: ${numberFormat.format(item.price)} yards)`;
+    }
+  });
+  app.append(itemButton);
+  buttons.push(itemButton);
+  itemButton.disabled = true;
+}
+
+/*
 const hatUpgrade = document.createElement("button");
 hatUpgrade.textContent = "Crochet a Hat to keep off the sun";
 let hatUpgradePrice: number = 10;
@@ -96,6 +163,7 @@ dragonUpgrade.addEventListener("click", () => {
 });
 app.append(dragonUpgrade);
 dragonUpgrade.disabled = true;
+*/
 
 /*
 setInterval(() => {
@@ -114,19 +182,6 @@ function step(timestamp: DOMHighResTimeStamp) {
 
   yarnCounter += yarnPerMs * elapsed;
   updateScore();
-
-  if (furtherUpgrades) {
-    if (yarnCounter >= 10) {
-      hatUpgrade.disabled = false;
-    }
-    if (yarnCounter >= 100) {
-      tableUpgrade.disabled = false;
-    }
-    if (yarnCounter >= 1000) {
-      dragonUpgrade.disabled = false;
-      furtherUpgrades = false;
-    }
-  }
 
   requestAnimationFrame(step);
 }
