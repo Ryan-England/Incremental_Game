@@ -22,31 +22,34 @@ const numberFormat = new Intl.NumberFormat("en-US", {
 });
 
 interface Item {
-  name: string,
-  price: number,
-  rateIncrease: number,
-  counter: number
-};
+  name: string;
+  description: string;
+  price: number;
+  rateIncrease: number;
+  counter: number;
+}
 
-const availableItems : Item[] = [
-  {name: `Crochet Hat`,
-    price: 10,
-    rateIncrease: 0.0001,
-    counter: 0
+const availableItems: Item[] = [
+  { name: `Crochet Hat`, 
+    description: `Crochet a Hat to keep off the sun`,
+    price: 10, 
+    rateIncrease: 0.0001, 
+    counter: 0 
   },
-  {name: "Crochet Table",
-    price: 100,
-    rateIncrease: 0.002,
-    counter: 0
+  { name: "Crochet Table", 
+    description: `Crochet a table to crochet upon`,
+    price: 100, 
+    rateIncrease: 0.002, 
+    counter: 0 
   },
-  {name: "Crochet Dragon",
-    price: 1000,
-    rateIncrease: 0.05,
-    counter: 0
-  },
+  { name: "Crochet Dragon", 
+    description: `Crochet a cute dragon to fetch more yarn`,
+    price: 1000, 
+    rateIncrease: 0.05, 
+    counter: 0 },
 ];
 
-const buttons : HTMLButtonElement[] = [];
+const buttons: HTMLButtonElement[] = [];
 
 function updateScore() {
   score.innerText = `Yarn by yards: ${numberFormat.format(yarnCounter)}`;
@@ -57,10 +60,10 @@ function updateScore() {
   for (const item of availableItems) {
     if (item.counter != 0) {
       score.innerText += `
-      ${item.name}s crafted: ${item.counter}`
+      ${item.name}s crafted: ${item.counter}`;
     }
     for (const button of buttons) {
-      if (item.name == button.textContent && yarnCounter >= item.price) {
+      if (item.description == button.textContent && yarnCounter >= item.price) {
         button.disabled = false;
       }
     }
@@ -92,7 +95,6 @@ function updateScore() {
   */
 }
 
-
 const button = document.createElement("button");
 button.textContent = "🧶 Gather 🧶 Yarn 🧶";
 button.addEventListener("click", () => {
@@ -103,14 +105,15 @@ app.append(button);
 
 for (const item of availableItems) {
   const itemButton = document.createElement("button");
-  itemButton.textContent = item.name;
+  itemButton.textContent = item.description;
   itemButton.addEventListener("click", () => {
     if (yarnCounter >= item.price) {
       yarnCounter -= item.price;
       item.price *= 1.15;
       item.counter++;
       yarnPerMs += item.rateIncrease;
-      itemButton.textContent = item.name + ` (cost: ${numberFormat.format(item.price)} yards)`;
+      itemButton.textContent =
+        item.name + ` (cost: ${numberFormat.format(item.price)} yards)`;
     }
   });
   app.append(itemButton);
