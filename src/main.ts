@@ -15,6 +15,7 @@ app.append(score);
 
 let yarnCounter: number = 0;
 let yarnPerMs: number = 0;
+const yarnExpenseIncrease: number = 1.15;
 
 const numberFormat = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
@@ -67,7 +68,7 @@ const availableItems: Item[] = [
   },
 ];
 
-const buttons: HTMLButtonElement[] = [];
+const itemButtons: HTMLButtonElement[] = [];
 
 function updateScore() {
   score.innerText = `Yarn by yards: ${numberFormat.format(yarnCounter)}`;
@@ -80,7 +81,7 @@ function updateScore() {
       score.innerText += `
       ${item.name}s crafted: ${item.counter}`;
     }
-    for (const button of buttons) {
+    for (const button of itemButtons) {
       if (item.description == button.textContent && yarnCounter >= item.price) {
         button.disabled = false;
       }
@@ -102,7 +103,7 @@ for (const item of availableItems) {
   itemButton.addEventListener("click", () => {
     if (yarnCounter >= item.price) {
       yarnCounter -= item.price;
-      item.price *= 1.15;
+      item.price *= yarnExpenseIncrease;
       item.counter++;
       yarnPerMs += item.rateIncrease;
       itemButton.textContent =
@@ -110,12 +111,12 @@ for (const item of availableItems) {
     }
   });
   app.append(itemButton);
-  buttons.push(itemButton);
+  itemButtons.push(itemButton);
   itemButton.disabled = true;
 }
 
 let startOfFrame: DOMHighResTimeStamp;
-function step(timestamp: DOMHighResTimeStamp) {
+function animationStep(timestamp: DOMHighResTimeStamp) {
   if (startOfFrame === undefined) {
     startOfFrame = timestamp;
   }
@@ -125,7 +126,7 @@ function step(timestamp: DOMHighResTimeStamp) {
   yarnCounter += yarnPerMs * elapsed;
   updateScore();
 
-  requestAnimationFrame(step);
+  requestAnimationFrame(animationStep);
 }
 
-requestAnimationFrame(step);
+requestAnimationFrame(animationStep);
