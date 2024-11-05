@@ -25,6 +25,7 @@ const numberFormat = new Intl.NumberFormat("en-US", {
 interface Item {
   name: string;
   description: string;
+  color: string;
   price: number;
   rateIncrease: number;
   counter: number;
@@ -34,6 +35,7 @@ const availableItems: Item[] = [
   {
     name: `Crochet Hat`,
     description: `Crochet a Hat to keep off the sun`,
+    color: "cyan",
     price: 10,
     rateIncrease: 0.0001,
     counter: 0,
@@ -41,6 +43,7 @@ const availableItems: Item[] = [
   {
     name: `Crochet Sweater`,
     description: `Crochet a sweater to look snazzy`,
+    color: "magenta",
     price: 30,
     rateIncrease: 0.0009,
     counter: 0,
@@ -48,6 +51,7 @@ const availableItems: Item[] = [
   {
     name: "Crochet Table",
     description: `Crochet a table to crochet upon`,
+    color: "yellow",
     price: 100,
     rateIncrease: 0.002,
     counter: 0,
@@ -55,6 +59,7 @@ const availableItems: Item[] = [
   {
     name: "Crochet Dragon",
     description: `Crochet a cute dragon to fetch more yarn`,
+    color: "pink",
     price: 1000,
     rateIncrease: 0.05,
     counter: 0,
@@ -62,6 +67,7 @@ const availableItems: Item[] = [
   {
     name: "Crochet Friend",
     description: `Crochet a new friend who can do everything you do`,
+    color: "purple",
     price: 10000,
     rateIncrease: 0.4,
     counter: 0,
@@ -91,6 +97,7 @@ function updateScore() {
 
 const button = document.createElement("button");
 button.textContent = "🧶 Gather 🧶 Yarn 🧶";
+button.style.backgroundColor = "lavender";
 button.addEventListener("click", () => {
   yarnCounter++;
   updateScore();
@@ -100,6 +107,7 @@ app.append(button);
 for (const item of availableItems) {
   const itemButton = document.createElement("button");
   itemButton.textContent = item.description;
+  itemButton.style.backgroundColor = item.color;
   itemButton.addEventListener("click", () => {
     if (yarnCounter >= item.price) {
       yarnCounter -= item.price;
