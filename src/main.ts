@@ -22,7 +22,7 @@ sidebar.style.top = "0";
 sidebar.style.left = "0";
 sidebar.style.height = "100%";
 sidebar.style.padding = "10px";
-sidebar.style.backgroundColor = "#333";
+sidebar.style.backgroundColor = "white";
 sidebar.style.color = "#fff";
 app.appendChild(sidebar);
 
