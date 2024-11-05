@@ -121,8 +121,8 @@ for (const item of availableItems) {
   const itemButton = document.createElement("button");
   itemButton.textContent = item.description;
   itemButton.style.backgroundColor = item.color;
-  itemButton.style.marginBottom = "50px";
-  itemButton.style.padding = "8px"
+  itemButton.style.marginBottom = "25px";
+  itemButton.style.padding = "8px";
   itemButton.addEventListener("click", () => {
     if (yarnCounter >= item.price) {
       yarnCounter -= item.price;
