@@ -13,6 +13,19 @@ const score = document.createElement("div");
 score.innerText = `Yarn by yard: None`;
 app.append(score);
 
+// sidebar for upgrades
+const sidebar = document.createElement("div");
+sidebar.className = "sidebar";
+sidebar.style.width = "300px";
+sidebar.style.position = "absolute";
+sidebar.style.top = "0";
+sidebar.style.left = "0";
+sidebar.style.height = "100%";
+sidebar.style.padding = "10px";
+sidebar.style.backgroundColor = "#333";
+sidebar.style.color = "#fff";
+app.appendChild(sidebar);
+
 let yarnCounter: number = 0;
 let yarnPerMs: number = 0;
 const yarnExpenseIncrease: number = 1.15;
@@ -108,6 +121,8 @@ for (const item of availableItems) {
   const itemButton = document.createElement("button");
   itemButton.textContent = item.description;
   itemButton.style.backgroundColor = item.color;
+  itemButton.style.marginBottom = "50px";
+  itemButton.style.padding = "8px"
   itemButton.addEventListener("click", () => {
     if (yarnCounter >= item.price) {
       yarnCounter -= item.price;
@@ -118,7 +133,8 @@ for (const item of availableItems) {
         item.name + ` (cost: ${numberFormat.format(item.price)} yards)`;
     }
   });
-  app.append(itemButton);
+  sidebar.appendChild(itemButton);
+  sidebar.appendChild(document.createElement("br"));
   itemButtons.push(itemButton);
   itemButton.disabled = true;
 }
